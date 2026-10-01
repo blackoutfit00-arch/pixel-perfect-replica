@@ -33,7 +33,7 @@ export function OrderFlow() {
   const [year, setYear] = useState<number | null>(null);
   const [battery, setBattery] = useState<Battery | null>(null);
   const [order, setOrder] = useState<OrderState>(initialOrderState);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; location?: string }>({});
   const [confirmed, setConfirmed] = useState<{ number: string; total: number } | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -55,7 +55,7 @@ export function OrderFlow() {
 
   /** التحقق من الحقول المطلوبة */
   function validate() {
-    const e: Record<string, string> = {};
+    const e: { name?: string; phone?: string; location?: string } = {};
     if (order.name.trim().length < 2) e.name = "اكتب اسمك";
     if (!/^[0-9+\s-]{8,}$/.test(order.phone.trim())) e.phone = "اكتب رقم جوال صحيح";
     if (order.service === "onsite" && order.location.trim().length < 5)
