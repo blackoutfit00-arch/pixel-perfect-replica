@@ -121,7 +121,7 @@ function BrandItem({ brand, items }: { brand: Brand; items: Battery[] }) {
       </AccordionTrigger>
 
       <AccordionContent className="border-t border-border bg-secondary/40 p-4 sm:p-5">
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           {items.map((b) => (
             <BatteryCard key={b.id} b={b} />
           ))}
@@ -145,7 +145,7 @@ function BatteryCard({ b }: { b: Battery }) {
           loading="lazy"
           width={1024}
           height={1024}
-          className="h-32 w-full object-contain p-2"
+          className="aspect-square w-full object-contain p-3"
         />
         <span
           dir="ltr"
@@ -162,15 +162,15 @@ function BatteryCard({ b }: { b: Battery }) {
 
         <div className="mt-2 flex flex-wrap gap-1.5 text-[11px] font-bold">
           <span className="rounded-md bg-secondary px-2 py-1">{b.ah} أمبير</span>
-          <span className="rounded-md bg-secondary px-2 py-1">ضمان {b.warrantyMonths} شهر</span>
+          <span className="rounded-md bg-secondary px-2 py-1">{b.warrantyMonths} شهر</span>
         </div>
 
-        <div className="mt-auto flex items-end justify-between pt-3">
-          <p className="font-display text-xl font-extrabold leading-none">
+        <div className="mt-auto pt-3">
+          <p className="font-display text-lg font-extrabold leading-none">
             {b.price} <span className="text-xs font-bold text-muted-foreground">{CURRENCY}</span>
           </p>
           <span
-            className={`inline-flex items-center gap-1.5 text-xs font-bold ${
+            className={`mt-1.5 inline-flex items-center gap-1.5 text-xs font-bold ${
               b.inStock ? "text-primary" : "text-muted-foreground"
             }`}
           >
