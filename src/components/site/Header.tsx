@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.jpg";
 import { SHOP } from "@/data/config";
 
 const NAV = [
@@ -17,9 +18,13 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid size-9 place-items-center rounded-lg bg-primary text-primary-foreground font-bold">
-            أ
-          </span>
+          <img
+            src={logo}
+            alt={SHOP.name}
+            width={622}
+            height={300}
+            className="h-9 w-auto rounded-lg ring-1 ring-primary/30"
+          />
           <span className="font-display text-base font-extrabold leading-tight sm:text-lg">
             {SHOP.name}
           </span>

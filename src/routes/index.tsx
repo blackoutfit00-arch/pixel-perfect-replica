@@ -40,7 +40,7 @@ function Index() {
           height={1104}
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.3_0.05_205/0.78)] via-[oklch(0.28_0.045_208/0.72)] to-[oklch(0.2_0.04_220/0.92)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.45_0.2_350/0.82)] via-[oklch(0.28_0.12_350/0.82)] to-[oklch(0.12_0.03_350/0.94)]" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <div className="max-w-xl text-white">
             <span className="inline-block rounded-full border border-white/25 px-3 py-1 text-xs font-bold">

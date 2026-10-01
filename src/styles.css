@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * نظام التصميم — ألوان دافية هادئة (كريمي + أخضر مزرق عميق + لمسة عنبرية).
+ * نظام التصميم — ألوان لوحة المحل: ماجنتا + أبيض + أسود، مع لمسة ذهبية من الشعار.
  * كل الألوان بصيغة oklch.
  */
 
@@ -52,79 +52,79 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: "Cairo", system-ui, sans-serif;
   --font-display: "Tajawal", "Cairo", system-ui, sans-serif;
-  --shadow-soft: 0 1px 2px oklch(0.3 0.04 200 / 6%), 0 8px 24px -12px oklch(0.3 0.04 200 / 16%);
-  --shadow-lift: 0 2px 6px oklch(0.3 0.04 200 / 8%), 0 24px 48px -24px oklch(0.3 0.04 200 / 24%);
+  --shadow-soft: 0 1px 2px oklch(0.2 0.05 350 / 6%), 0 8px 24px -12px oklch(0.3 0.12 350 / 20%);
+  --shadow-lift: 0 2px 6px oklch(0.2 0.05 350 / 10%), 0 24px 48px -24px oklch(0.3 0.12 350 / 34%);
 }
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.975 0.012 85);
-  --foreground: oklch(0.27 0.03 215);
-  --card: oklch(0.99 0.008 85);
-  --card-foreground: oklch(0.27 0.03 215);
-  --popover: oklch(0.99 0.008 85);
-  --popover-foreground: oklch(0.27 0.03 215);
-  --primary: oklch(0.45 0.075 200);
-  --primary-foreground: oklch(0.98 0.01 85);
-  --secondary: oklch(0.94 0.02 90);
-  --secondary-foreground: oklch(0.27 0.03 215);
-  --muted: oklch(0.95 0.015 88);
-  --muted-foreground: oklch(0.5 0.03 215);
-  --accent: oklch(0.92 0.045 80);
-  --accent-foreground: oklch(0.3 0.05 60);
-  --destructive: oklch(0.55 0.15 30);
-  --destructive-foreground: oklch(0.98 0.01 85);
-  --border: oklch(0.89 0.02 88);
-  --input: oklch(0.88 0.02 88);
-  --ring: oklch(0.55 0.08 200);
-  --chart-1: oklch(0.45 0.075 200);
-  --chart-2: oklch(0.65 0.1 75);
-  --chart-3: oklch(0.55 0.06 160);
-  --chart-4: oklch(0.72 0.08 60);
-  --chart-5: oklch(0.85 0.04 90);
-  --sidebar: oklch(0.96 0.014 88);
-  --sidebar-foreground: oklch(0.27 0.03 215);
-  --sidebar-primary: oklch(0.45 0.075 200);
-  --sidebar-primary-foreground: oklch(0.98 0.01 85);
-  --sidebar-accent: oklch(0.92 0.045 80);
-  --sidebar-accent-foreground: oklch(0.3 0.05 60);
-  --sidebar-border: oklch(0.89 0.02 88);
-  --sidebar-ring: oklch(0.55 0.08 200);
+  --background: oklch(0.99 0.004 350);
+  --foreground: oklch(0.15 0.01 350);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.01 350);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.01 350);
+  --primary: oklch(0.52 0.21 350);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.955 0.025 350);
+  --secondary-foreground: oklch(0.15 0.01 350);
+  --muted: oklch(0.965 0.012 350);
+  --muted-foreground: oklch(0.48 0.02 350);
+  --accent: oklch(0.93 0.045 350);
+  --accent-foreground: oklch(0.15 0.01 350);
+  --destructive: oklch(0.2 0.01 350);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9 0.015 350);
+  --input: oklch(0.88 0.018 350);
+  --ring: oklch(0.52 0.21 350);
+  --chart-1: oklch(0.52 0.21 350);
+  --chart-2: oklch(0.78 0.12 85);
+  --chart-3: oklch(0.15 0.01 350);
+  --chart-4: oklch(0.7 0.14 350);
+  --chart-5: oklch(0.85 0.03 350);
+  --sidebar: oklch(0.975 0.01 350);
+  --sidebar-foreground: oklch(0.15 0.01 350);
+  --sidebar-primary: oklch(0.52 0.21 350);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.93 0.045 350);
+  --sidebar-accent-foreground: oklch(0.15 0.01 350);
+  --sidebar-border: oklch(0.9 0.015 350);
+  --sidebar-ring: oklch(0.52 0.21 350);
 }
 
 .dark {
-  --background: oklch(0.2 0.02 225);
-  --foreground: oklch(0.94 0.012 85);
-  --card: oklch(0.245 0.022 225);
-  --card-foreground: oklch(0.94 0.012 85);
-  --popover: oklch(0.245 0.022 225);
-  --popover-foreground: oklch(0.94 0.012 85);
-  --primary: oklch(0.78 0.08 190);
-  --primary-foreground: oklch(0.2 0.03 225);
-  --secondary: oklch(0.3 0.025 225);
-  --secondary-foreground: oklch(0.94 0.012 85);
-  --muted: oklch(0.3 0.025 225);
-  --muted-foreground: oklch(0.72 0.025 215);
-  --accent: oklch(0.34 0.04 90);
-  --accent-foreground: oklch(0.94 0.04 85);
-  --destructive: oklch(0.7 0.13 30);
-  --destructive-foreground: oklch(0.2 0.03 225);
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.7 0.07 190);
-  --chart-1: oklch(0.78 0.08 190);
-  --chart-2: oklch(0.8 0.1 80);
-  --chart-3: oklch(0.7 0.07 160);
-  --chart-4: oklch(0.65 0.08 60);
-  --chart-5: oklch(0.45 0.04 215);
-  --sidebar: oklch(0.245 0.022 225);
-  --sidebar-foreground: oklch(0.94 0.012 85);
-  --sidebar-primary: oklch(0.78 0.08 190);
-  --sidebar-primary-foreground: oklch(0.2 0.03 225);
-  --sidebar-accent: oklch(0.34 0.04 90);
-  --sidebar-accent-foreground: oklch(0.94 0.04 85);
-  --sidebar-border: oklch(1 0 0 / 11%);
-  --sidebar-ring: oklch(0.7 0.07 190);
+  --background: oklch(0.14 0.012 350);
+  --foreground: oklch(0.98 0.004 350);
+  --card: oklch(0.19 0.02 350);
+  --card-foreground: oklch(0.98 0.004 350);
+  --popover: oklch(0.19 0.02 350);
+  --popover-foreground: oklch(0.98 0.004 350);
+  --primary: oklch(0.66 0.21 350);
+  --primary-foreground: oklch(0.12 0.01 350);
+  --secondary: oklch(0.25 0.03 350);
+  --secondary-foreground: oklch(0.98 0.004 350);
+  --muted: oklch(0.25 0.025 350);
+  --muted-foreground: oklch(0.72 0.03 350);
+  --accent: oklch(0.3 0.06 350);
+  --accent-foreground: oklch(0.98 0.004 350);
+  --destructive: oklch(0.9 0.01 350);
+  --destructive-foreground: oklch(0.12 0.01 350);
+  --border: oklch(1 0 0 / 13%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.66 0.21 350);
+  --chart-1: oklch(0.66 0.21 350);
+  --chart-2: oklch(0.82 0.12 85);
+  --chart-3: oklch(0.98 0.004 350);
+  --chart-4: oklch(0.5 0.15 350);
+  --chart-5: oklch(0.35 0.04 350);
+  --sidebar: oklch(0.19 0.02 350);
+  --sidebar-foreground: oklch(0.98 0.004 350);
+  --sidebar-primary: oklch(0.66 0.21 350);
+  --sidebar-primary-foreground: oklch(0.12 0.01 350);
+  --sidebar-accent: oklch(0.3 0.06 350);
+  --sidebar-accent-foreground: oklch(0.98 0.004 350);
+  --sidebar-border: oklch(1 0 0 / 13%);
+  --sidebar-ring: oklch(0.66 0.21 350);
 }
 
 @layer base {
@@ -151,10 +151,10 @@
   }
 }
 
-/* تدرّج أخضر مزرق هادئ للأقسام الداكنة */
+/* تدرّج ماجنتا إلى أسود للأقسام الداكنة (مثل لوحة المحل) */
 @utility surface-ink {
-  background: linear-gradient(160deg, oklch(0.3 0.05 205), oklch(0.2 0.04 220));
-  color: oklch(0.97 0.012 85);
+  background: linear-gradient(160deg, oklch(0.42 0.19 350), oklch(0.16 0.04 350));
+  color: oklch(1 0 0);
 }
 
 @utility card-elevated {
