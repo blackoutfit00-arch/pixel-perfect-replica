@@ -2,7 +2,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { Clock3, MapPin } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { BATTERIES, type Battery } from "@/data/batteries";
+import { BRANDS, type Brand } from "@/data/brands";
 import { CURRENCY, SHOP } from "@/data/config";
 
 export const Route = createFileRoute("/batteries")({
@@ -24,66 +32,38 @@ export const Route = createFileRoute("/batteries")({
   component: BatteriesPage,
 });
 
-/** الاسم الإنجليزي للماركة — يظهر بجانب الاسم العربي */
-const BRAND_EN: Record<string, string> = {
-  "أمارون": "AMARON",
-  "إيه سي ديلكو": "AC Delco",
-  "سولايت": "Solite",
-  "فارتا": "Varta",
-  "بوش": "Bosch",
-};
-
-/** تجميع البطاريات حسب الماركة، ومقاساتها مرتبة من الأصغر للأكبر */
-function groupByBrand(items: Battery[]) {
-  const map = new Map<string, Battery[]>();
-  for (const b of items) {
-    const list = map.get(b.brand) ?? [];
-    list.push(b);
-    map.set(b.brand, list);
-  }
-  return Array.from(map, ([brand, list]) => ({
-    brand,
-    items: [...list].sort((a, b) => a.ah - b.ah),
-  }));
+/** نص مدة الضمان: رقم واحد أو نطاق (مثل 18 – 24 شهر) */
+function warrantyText(items: Battery[]) {
+  const w = items.map((b) => b.warrantyMonths);
+  const min = Math.min(...w);
+  const max = Math.max(...w);
+  return min === max ? `${min} شهر` : `${min} – ${max} شهر`;
 }
 
 function BatteriesPage() {
-  const groups = groupByBrand(BATTERIES);
+  const groups = BRANDS.map((brand) => ({
+    brand,
+    items: BATTERIES.filter((b) => b.brand === brand.name).sort((a, b) => a.ah - b.ah),
+  })).filter((g) => g.items.length > 0);
 
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="mx-auto max-w-6xl px-4 py-12">
+      <main className="mx-auto max-w-3xl px-4 py-12">
         <h1 className="font-display text-3xl font-extrabold">البطاريات المتوفرة</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          لمعرفة البطارية المناسبة لسيارتك،{" "}
+          اختر الشركة لتشوف المقاسات المتوفرة. ولمعرفة البطارية المناسبة لسيارتك،{" "}
           <Link to="/" className="font-bold text-primary underline underline-offset-4">
             ابحث عن سيارتك من الصفحة الرئيسية
           </Link>
           .
         </p>
 
-        {/* تنقّل سريع بين الماركات */}
-        <nav aria-label="الماركات" className="mt-6 flex flex-wrap gap-2">
-          {groups.map((g, i) => (
-            <a
-              key={g.brand}
-              href={`#brand-${i}`}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-bold transition-colors hover:border-primary hover:bg-secondary"
-            >
-              {g.brand}
-              <span className="grid min-w-5 place-items-center rounded-full bg-primary px-1.5 text-[11px] font-bold leading-5 text-primary-foreground">
-                {g.items.length}
-              </span>
-            </a>
+        <Accordion type="single" collapsible className="mt-8 space-y-4">
+          {groups.map((g) => (
+            <BrandItem key={g.brand.name} brand={g.brand} items={g.items} />
           ))}
-        </nav>
-
-        <div className="mt-8 space-y-8">
-          {groups.map((g, i) => (
-            <BrandSection key={g.brand} id={`brand-${i}`} brand={g.brand} items={g.items} />
-          ))}
-        </div>
+        </Accordion>
       </main>
       <Footer />
       <WhatsAppFab />
@@ -91,47 +71,70 @@ function BatteriesPage() {
   );
 }
 
-function BrandSection({ id, brand, items }: { id: string; brand: string; items: Battery[] }) {
-  const prices = items.map((b) => b.price);
-  const min = Math.min(...prices);
-  const max = Math.max(...prices);
-  const en = BRAND_EN[brand];
-
+function BrandLogo({ brand }: { brand: Brand }) {
+  if (brand.logo) {
+    return (
+      <span className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-xl border border-border bg-white p-1.5 sm:size-20">
+        <img src={brand.logo} alt={brand.en} className="size-full object-contain" />
+      </span>
+    );
+  }
+  // شعار نصي مؤقت إلى أن تضيف صورة الشركة
   return (
-    <section id={id} className="card-elevated scroll-mt-24 overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-secondary/60 px-5 py-4">
-        <div className="flex items-center gap-3">
-          <span className="grid size-11 place-items-center rounded-xl bg-primary font-display text-xl font-extrabold text-primary-foreground">
-            {brand.charAt(0)}
-          </span>
-          <div>
-            <h2 className="font-display text-xl font-extrabold leading-tight">{brand}</h2>
-            {en && (
-              <p dir="ltr" className="text-start text-xs font-semibold tracking-wide text-muted-foreground">
-                {en}
-              </p>
-            )}
-          </div>
-        </div>
-        <p className="text-xs font-semibold text-muted-foreground">
-          {items.length} {items.length === 1 ? "مقاس" : "مقاسات"} ·{" "}
-          {min === max ? `${min} ${CURRENCY}` : `من ${min} إلى ${max} ${CURRENCY}`}
-        </p>
-      </header>
+    <span
+      dir="ltr"
+      className="grid size-16 shrink-0 place-items-center rounded-xl bg-primary px-1 text-center font-display text-[11px] font-extrabold leading-tight tracking-wide text-primary-foreground sm:size-20 sm:text-sm"
+    >
+      {brand.en}
+    </span>
+  );
+}
 
-      <ul className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((b) => (
-          <BatteryCard key={b.id} b={b} />
-        ))}
-      </ul>
-    </section>
+function BrandItem({ brand, items }: { brand: Brand; items: Battery[] }) {
+  return (
+    <AccordionItem
+      value={brand.name}
+      className="card-elevated overflow-hidden border data-[state=open]:border-primary/40"
+    >
+      <AccordionTrigger className="gap-3 px-4 py-4 text-start hover:no-underline sm:px-5">
+        <span className="flex flex-1 items-center gap-4">
+          <BrandLogo brand={brand} />
+          <span className="flex min-w-0 flex-1 flex-col gap-2 text-start">
+            <span className="font-display text-lg font-extrabold leading-tight sm:text-xl">
+              {brand.name}
+            </span>
+            <span className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs font-semibold text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin className="size-3.5 text-primary" />
+                صنع في {brand.madeIn}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Clock3 className="size-3.5 text-primary" />
+                ضمان {warrantyText(items)}
+              </span>
+            </span>
+            <span className="w-fit rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-bold text-foreground">
+              {items.length} {items.length === 1 ? "مقاس متوفر" : "مقاسات متوفرة"}
+            </span>
+          </span>
+        </span>
+      </AccordionTrigger>
+
+      <AccordionContent className="border-t border-border bg-secondary/40 p-4 sm:p-5">
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {items.map((b) => (
+            <BatteryCard key={b.id} b={b} />
+          ))}
+        </ul>
+      </AccordionContent>
+    </AccordionItem>
   );
 }
 
 function BatteryCard({ b }: { b: Battery }) {
   return (
     <li
-      className={`flex flex-col overflow-hidden rounded-xl border border-border bg-background transition-shadow hover:shadow-[var(--shadow-soft)] ${
+      className={`flex flex-col overflow-hidden rounded-xl border border-border bg-card ${
         b.inStock ? "" : "opacity-60"
       }`}
     >
